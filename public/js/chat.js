@@ -27,6 +27,10 @@ console.log('You should see this log message in your console');
     // should call itself again after a one or two second delay.
     // 
     function fetchChatsFromServer(){
+             for (var i = 0; i < chats.length; i++) {
+                 chats.push(chats[i]);
+             }
+             updateDOM();
     }
     
 
@@ -36,18 +40,10 @@ console.log('You should see this log message in your console');
     // See `index.js` to see how that request will be handled.
     // 
     function sendChatMessage(message){
-        console.log(message);
-       $("#chats").post( "index.html", message);
-        }
-        
-        /*
-        var httpRequest = new XMLHttpRequest();
- +        httpRequest.open('POST', '/chats/');
- +        // httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
- +        // httpRequest.send('message=' + encodeURIComponent(message));
- +        httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
- +        httpRequest.send(JSON.stringify({message: message}));*/
+        $.post('/chats/', {message: message})
+    }
     
+       
     
     // TODO #1: Add an event listener that listens for when a user
     // clicks on the submit button and then calls the `sendChatMessage`
